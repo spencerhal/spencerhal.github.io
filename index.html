@@ -13,12 +13,6 @@
             background-color: #000;
             color: #fff;
             transition: background-color 0.3s ease, color 0.3s ease;
-            opacity: 0; /* Initial opacity for fade-in */
-            animation: fadeIn 1s forwards; /* Apply fade-in animation */
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
         body.light-theme {
             background-color: #f9f9f9;
@@ -48,6 +42,8 @@
             cursor: pointer;
             transition: background-color 0.3s ease, border-color 0.3s ease;
             margin-bottom: 4px;
+            opacity: 0; /* Initial opacity for fade-in */
+            animation: fadeIn 1s forwards; /* Apply fade-in animation */
         }
         .grid-item.light-theme {
             background-color: #fff;
@@ -266,7 +262,7 @@
         } else {
             themeSwitchButton.innerHTML = '<i class="iconoir-moon"></i>';
         }
-        imageUrls.forEach(item => {
+        imageUrls.forEach((item, index) => {
             const gridItem = document.createElement('div');
             gridItem.className = 'grid-item';
             if (isLightTheme) {
@@ -291,13 +287,14 @@
                 placeholder.textContent = 'No Image';
                 gridItem.appendChild(placeholder);
             };
+            gridItem.style.animationDelay = `${index * 100}ms`; /* Add delay here */
+            gridContainer.appendChild(gridItem);
             gridItem.addEventListener('click', () => {
                 lightboxImg.src = item.url;
                 captionElement.textContent = item.caption;
                 lightbox.classList.add('active');
                 document.body.style.overflow = 'hidden';
             });
-            gridContainer.appendChild(gridItem);
         });
         closeButton.addEventListener('click', () => {
             lightbox.classList.remove('active');
