@@ -42,8 +42,8 @@
             cursor: pointer;
             transition: background-color 0.3s ease, border-color 0.3s ease;
             margin-bottom: 4px;
-            opacity: 0; /* Initial opacity for fade-in */
-            animation: fadeIn 1s forwards; /* Apply fade-in animation */
+            opacity: 1; /* Changed initial opacity to 1 */
+            animation: none; /* Removed fade-in animation */
         }
         .grid-item.light-theme {
             background-color: #fff;
@@ -190,10 +190,6 @@
             outline: none;
             box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
         }
-        #page-title {
-            transition: transform 0.1s ease;  /* Smooth transition for movement */
-            cursor: pointer; /* Indicate it's interactive */
-        }
     </style>
 </head>
 <body class="bg-black">
@@ -312,28 +308,7 @@
                 captionElement.textContent = '';
             }
         });
-
-        const titleElement = document.getElementById('page-title');
-
-        document.addEventListener('mousemove', (event) => {
-            const x = event.clientX;
-            const y = event.clientY;
-
-            // Calculate the center of the viewport
-            const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
-
-            // Calculate the distance from the center
-            const deltaX = x - centerX;
-            const deltaY = y - centerY;
-
-            // Scale down the movement effect
-            const movementX = deltaX / 100;  // Adjust divisor for sensitivity
-            const movementY = deltaY / 100;
-
-            // Apply the transformation
-            titleElement.style.transform = `translate(${movementX}px, ${movementY}px)`;
-        });
     </script>
 </body>
 </html>
+
