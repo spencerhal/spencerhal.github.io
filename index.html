@@ -190,6 +190,10 @@
             outline: none;
             box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
         }
+        #page-title {
+            transition: transform 0.1s ease;  /* Smooth transition for movement */
+            cursor: pointer; /* Indicate it's interactive */
+        }
     </style>
 </head>
 <body class="bg-black">
@@ -205,7 +209,7 @@
         </div>
     </nav>
     <div class="container mx-auto mt-8">
-        <h1 class="text-2xl font-semibold text-white mb-4 text-center">Photo Grid</h1>
+        <h1 id="page-title" class="text-2xl font-semibold text-white mb-4 text-center">Photo Grid</h1>
         <div class="grid-container">
             </div>
         <div class="lightbox">
@@ -307,6 +311,28 @@
                 document.body.style.overflow = '';
                 captionElement.textContent = '';
             }
+        });
+
+        const titleElement = document.getElementById('page-title');
+
+        document.addEventListener('mousemove', (event) => {
+            const x = event.clientX;
+            const y = event.clientY;
+
+            // Calculate the center of the viewport
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            // Calculate the distance from the center
+            const deltaX = x - centerX;
+            const deltaY = y - centerY;
+
+            // Scale down the movement effect
+            const movementX = deltaX / 100;  // Adjust divisor for sensitivity
+            const movementY = deltaY / 100;
+
+            // Apply the transformation
+            titleElement.style.transform = `translate(${movementX}px, ${movementY}px)`;
         });
     </script>
 </body>
