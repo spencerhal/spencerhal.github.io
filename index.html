@@ -7,123 +7,273 @@
     <link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/iconoir@6.1.0/css/iconoir.min.css" rel="stylesheet">
     <style>
-        /* Custom styles */
-        #typed-text {
-          font-family: 'Doto', monospace;
-          font-size: 4em;
-          font-weight: 700;
-          color: white;
-          overflow: hidden;
-          white-space: nowrap;
-          animation: typing 2.5s steps(30, end) forwards;
-          margin: 0 auto;
-          letter-spacing: 0.05em;
-          width: fit-content;
-          margin-bottom: 2rem;
-          text-align: center;
-        }
+      /* Custom styles */
+      #typed-text {
+        font-family: 'Doto', monospace;
+        font-size: 4em;
+        font-weight: 700;
+        color: white;
+        overflow: hidden;
+        white-space: nowrap;
+        animation: typing 2.5s steps(30, end) forwards;
+        margin: 0 auto;
+        letter-spacing: 0.05em;
+        width: fit-content;
+        margin-bottom: 2rem;
+        text-align: center;
+        color: #fff; /* Ensure default text color is white */
+      }
+      #typed-text.light-theme{
+        color: #000;
+      }
 
-        @keyframes typing {
-          from { width: 0 }
-          to { width: 100% }
-        }
+      @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+      }
 
-        .icon {
-          transition: transform 0.2s ease-in-out;
-          transform-origin: center;
-        }
+      .icon {
+        transition: transform 0.2s ease-in-out;
+        transform-origin: center;
+        color: #fff; /* Default icon color */
+      }
 
-        .icon:hover {
-          transform: translateY(-5px) scale(1.1);
-        }
+      .icon:hover {
+        transform: translateY(-5px) scale(1.1);
+      }
 
-        .icon:active {
-          transform: translateY(0) scale(1);
-        }
+      .icon:active {
+        transform: translateY(0) scale(1);
+      }
 
-        .material-icons {
-          font-size: 3em;
-          color: white;
-        }
+      .material-icons {
+        font-size: 3em;
+      }
+      .icon.light-theme {
+        color: #000; /* Light theme icon color */
+      }
 
-        body {
-          font-family: 'Doto', monospace;
-        }
+      body {
+        font-family: 'Doto', monospace;
+        background-color: #000;
+        color: #fff;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        display: flex; /* Use flexbox for centering */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh; /* Ensure full viewport height */
+        margin: 0; /* Reset default body margin */
+      }
 
-        header {
-          font-family: 'Doto', monospace;
-          font-weight: 700;
-        }
+      body.light-theme {
+        background-color: #f9f9f9;
+        color: #111;
+      }
 
-        footer {
-          font-family: 'Doto', monospace;
-          font-weight: 400;
-          display: flex;
-          justify-content: space-around;
-          align-items: flex-start;
-          width: 100%;
-          padding-left: 10%;
-          padding-right: 10%;
-        }
-        main {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          flex-grow: 1;
-        }
-        .icon-container{
-          display: flex;
-          width: 100%;
-          justify-content: space-around;
-          padding-left: 10%;
-          padding-right: 10%;
-        }
+      header {
+        font-family: 'Doto', monospace;
+        font-weight: 700;
+        color: #fff;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex; /* Use flexbox for navbar layout */
+        align-items: center; /* Vertically center items */
+        justify-content: space-between; /* Space out brand and right side */
+        padding: 12px 16px;
+        z-index: 100;
+      }
 
-        #sad-icon:hover {
-          content: "☹️";
-        }
-        #meh-icon:hover {
-          content: "😐";
-        }
-        #happy-icon:hover {
-          content: "😀";
-        }
+      header.light-theme {
+        color: #111;
+      }
+
+      footer {
+        font-family: 'Doto', monospace;
+        font-weight: 400;
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+        width: 100%;
+        padding-left: 10%;
+        padding-right: 10%;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+      }
+      .icon-container{
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        padding-left: 10%;
+        padding-right: 10%;
+      }
+
+      #sad-icon:hover {
+        content: "☹️";
+      }
+      #meh-icon:hover {
+        content: "😐";
+      }
+      #happy-icon:hover {
+        content: "😀";
+      }
+       .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        color: #fff;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        width: 100%;
+      }
+
+      .navbar.light-theme {
+        background-color: #f9f9f9;
+        color: #111;
+      }
+
+      .navbar-brand {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-right: 16px;
+      }
+
+      .navbar-links {
+        display: flex;
+        gap: 16px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar-links li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s ease-in-out;
+        font-size: 1em;
+      }
+
+      .navbar-links li a:hover {
+        color: #ddd;
+      }
+
+      .navbar-links li a.light-theme {
+        color: #111;
+      }
+
+      .navbar-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1em;
+        margin-left: auto;
+      }
+
+      .theme-switch-button {
+        background-color: transparent;
+        color: #fff;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        font-size: 1.5em;
+        transition: color 0.3s ease;
+      }
+
+      .theme-switch-button:hover {
+        color: #ddd;
+      }
+
+      .theme-switch-button.light-theme {
+        color: #111;
+      }
+
+      .theme-switch-button:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+      }
     </style>
 </head>
-<body class="bg-black text-white font-sans antialiased flex flex-col justify-between min-h-screen">
-<header class="absolute top-0 left-0 right-0 flex items-center p-4">
-    <div class="text-gray-400  text-sm mr-8">SPENCER HALSTEAD</div>
-    <nav class="flex space-x-6">
-        <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">ABOUT</a>
-        <a href="photography.html" class="text-gray-400 hover:text-white transition-colors text-sm">PHOTOGRAPHY</a>
-        <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">3D & ANIMATION</a>
-    </nav>
-    <div class="absolute top-0 right-0 p-4 text-gray-400  text-sm">02025</div>
-</header>
-
-<main class="flex-grow  items-center ">
-    <div id="typed-text">Spencer Halstead</div>
-    <footer class=" p-4  ">
-        <div class="icon" id="sad-icon">
-            <span class="material-icons">sentiment_very_dissatisfied</span>
+<body class="bg-black  ">
+    <header class="navbar">
+        <div class="navbar-brand" style="margin-left: 0;">Spencer Halstead</div>
+        <nav class="navbar-links">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">ABOUT</a>
+            <a href="photography.html" class="text-gray-400 hover:text-white transition-colors text-sm">PHOTOGRAPHY</a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">3D & ANIMATION</a>
+        </nav>
+        <div class="navbar-right">
+            &copy; 2025
+            <button id="theme-switch-button" class="theme-switch-button"><i class="iconoir-moon"></i></button>
         </div>
-        <div class="icon" id="meh-icon">
-            <span class="material-icons">crop_7_5</span>
-        </div>
-        <div class="icon" id="happy-icon">
-            <span class="material-icons">open_with</span>
-        </div>
-    </footer>
-</main>
+    </header>
+
+    <main class="  items-center ">
+        <div id="typed-text" >Spencer Halstead</div>
+         <footer class=" p-4  ">
+            <div class="icon" id="sad-icon">
+                 <span class="material-icons">sentiment_very_dissatisfied</span>
+            </div>
+            <div class="icon" id="meh-icon">
+                <span class="material-icons">crop_7_5</span>
+            </div>
+            <div class="icon" id="happy-icon">
+                <span class="material-icons">open_with</span>
+            </div>
+        </footer>
+    </main>
 
 
 
-<script>
-    // JavaScript to handle the typing animation
-    const typedTextElement = document.getElementById('typed-text');
-    typedTextElement.style.display = 'inline-block';
-</script>
+    <script>
+        // JavaScript to handle the typing animation
+        const typedTextElement = document.getElementById('typed-text');
+        typedTextElement.style.display = 'inline-block';
+
+        const body = document.body;
+        const navbar = document.querySelector('.navbar');
+        const themeSwitchButton = document.getElementById('theme-switch-button');
+        const header = document.querySelector('header');
+        const icons = document.querySelectorAll('.icon');
+        let isLightTheme = false;
+
+        function toggleTheme() {
+            isLightTheme = !isLightTheme;
+            body.classList.toggle('light-theme', isLightTheme);
+            navbar.classList.toggle('light-theme', isLightTheme);
+            header.classList.toggle('light-theme', isLightTheme);
+            typedTextElement.classList.toggle('light-theme', isLightTheme);
+            icons.forEach(icon => icon.classList.toggle('light-theme', isLightTheme));
+
+
+            if (isLightTheme) {
+                themeSwitchButton.innerHTML = '<i class="iconoir-sun"></i>';
+            } else {
+                themeSwitchButton.innerHTML = '<i class="iconoir-moon"></i>';
+            }
+        }
+
+        themeSwitchButton.addEventListener('click', toggleTheme);
+
+        if (isLightTheme) {
+                themeSwitchButton.innerHTML = '<i class="iconoir-sun"></i>';
+            } else {
+                themeSwitchButton.innerHTML = '<i class="iconoir-moon"></i>';
+            }
+    </script>
 </body>
 </html>
