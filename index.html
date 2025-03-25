@@ -3,337 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Grid</title>
+    <title>Spencer Halstead</title>
+    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Doto&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/iconoir@6.1.0/css/iconoir.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
+        /* Custom styles */
+        #typed-text {
+          font-family: 'Doto', monospace;
+          font-size: 4em;
+          font-weight: 700;
+          color: white;
+          overflow: hidden;
+          white-space: nowrap;
+          animation: typing 2.5s steps(30, end) forwards;
+          margin: 0 auto;
+          letter-spacing: 0.05em;
+          width: fit-content;
+          margin-bottom: 2rem;
+          text-align: center;
+        }
+
+        @keyframes typing {
+          from { width: 0 }
+          to { width: 100% }
+        }
+
+        .icon {
+          transition: transform 0.2s ease-in-out;
+          transform-origin: center;
+        }
+
+        .icon:hover {
+          transform: translateY(-5px) scale(1.1);
+        }
+
+        .icon:active {
+          transform: translateY(0) scale(1);
+        }
+
+        .material-icons {
+          font-size: 3em;
+          color: white;
+        }
+
         body {
-            font-family: 'Doto', sans-serif;
-            background-color: #000;
-            color: #fff;
-            transition: background-color 0.3s ease, color 0.3s ease;
+          font-family: 'Doto', monospace;
         }
-        body.light-theme {
-            background-color: #f9f9f9;
-            color: #111;
+
+        header {
+          font-family: 'Doto', monospace;
+          font-weight: 700;
         }
-        .container {
-            color: #fff;
+
+        footer {
+          font-family: 'Doto', monospace;
+          font-weight: 400;
+          display: flex;
+          justify-content: space-around;
+          align-items: flex-start;
+          width: 100%;
+          padding-left: 10%;
+          padding-right: 10%;
         }
-        .container.light-theme {
-            color: #111;
+        main {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          flex-grow: 1;
         }
-        .grid-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            padding: 8px;
+        .icon-container{
+          display: flex;
+          width: 100%;
+          justify-content: space-around;
+          padding-left: 10%;
+          padding-right: 10%;
         }
-        .grid-item {
-            flex: 1 0 auto;
-            min-width: 200px;
-            max-width: 100%;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #111;
-            cursor: pointer;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-            margin-bottom: 4px;
-            opacity: 0; /* Initial opacity for fade-in */
-            animation: fadeIn 1s forwards; /* Apply fade-in animation */
+
+        #sad-icon:hover {
+          content: "☹️";
         }
-        .grid-item.light-theme {
-            background-color: #fff;
-            border-color: #ddd;
+        #meh-icon:hover {
+          content: "😐";
         }
-        .grid-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.2s ease-in-out;
-        }
-        .grid-item img:hover {
-            transform: scale(1.05);
-        }
-        .placeholder {
-            width: 100%;
-            height: 100%;
-            background-color: #222;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            transition: background-color 0.3s ease;
-        }
-        .placeholder.light-theme {
-            background-color: #eee;
-            color: #666;
-        }
-        /* Lightbox Styles */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-        .lightbox img {
-            max-width: 90%;
-            max-height: 80%;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-            margin-bottom: 16px;
-            border: 2px solid #fff;
-        }
-        .lightbox.active {
-            display: flex;
-        }
-        .close-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: #fff;
-            font-size: 30px;
-            cursor: pointer;
-            z-index: 1001;
-            opacity: 0.8;
-            transition: opacity 0.2s ease-in-out;
-        }
-        .close-button:hover {
-            opacity: 1;
-        }
-        .caption {
-            color: #fff;
-            font-size: 1.2em;
-            text-align: center;
-            padding: 0 10px;
-            max-width: 90%;
-        }
-        .caption.light-theme {
-            color: #fff;
-        }
-        /* Navbar Styles */
-        .navbar {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            background-color: #000;
-            padding: 12px 16px;
-            color: #fff;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-            flex-wrap: wrap;
-        }
-        .navbar.light-theme {
-            background-color: #f9f9f9;
-            color: #111;
-            border-color: #ddd;
-        }
-        .navbar-brand {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-right: 16px;
-        }
-        .navbar-links {
-            display: flex;
-            gap: 16px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        .navbar-links li a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s ease-in-out;
-            font-size: 1em;
-        }
-        .navbar-links li a:hover {
-            color: #ddd;
-        }
-        .navbar-links li a.light-theme {
-            color: #111;
-        }
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1em;
-            margin-left: auto;
-        }
-        .theme-switch-button {
-            background-color: transparent;
-            color: #fff;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-            font-size: 1.5em;
-            transition: color 0.3s ease;
-        }
-        .theme-switch-button:hover {
-            color: #ddd;
-        }
-        .theme-switch-button.light-theme {
-            color: #111;
-        }
-        .theme-switch-button:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
-        }
-        #page-title {
-            transition: transform 0.1s ease;  /* Smooth transition for movement */
-            cursor: pointer; /* Indicate it's interactive */
+        #happy-icon:hover {
+          content: "😀";
         }
     </style>
 </head>
-<body class="bg-black">
-    <nav class="navbar">
-        <div class="navbar-brand" style="margin-left: 0;">Spencer Halstead</div>
-        <ul class="navbar-links">
-            <li><a href="#">Personal</a></li>
-            <li><a href="#">Schoolwork</a></li>
-        </ul>
-        <div class="navbar-right">
-            &copy; 2025
-            <button class="theme-switch-button"><i class="iconoir-moon"></i></button>
-        </div>
+<body class="bg-black text-white font-sans antialiased flex flex-col justify-between min-h-screen">
+<header class="absolute top-0 left-0 right-0 flex items-center p-4">
+    <div class="text-gray-400  text-sm mr-8">SPENCER HALSTEAD</div>
+    <nav class="flex space-x-6">
+        <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">ABOUT</a>
+        <a href="photography.html" class="text-gray-400 hover:text-white transition-colors text-sm">PHOTOGRAPHY</a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">3D & ANIMATION</a>
     </nav>
-    <div class="container mx-auto mt-8">
-        <h1 id="page-title" class="text-2xl font-semibold text-white mb-4 text-center">Photo Grid</h1>
-        <div class="grid-container">
-            </div>
-        <div class="lightbox">
-            <span class="close-button">&times;</span>
-            <img src="" alt="Large View">
-            <p class="caption"></p>        </div>
-    </div>
-    <script>
-        const imageUrls = [
-            { url: "https://picsum.photos/id/237/800/600", caption: "A cute dog" },
-            { url: "https://picsum.photos/id/238/600/800", caption: "A beautiful city" },
-            { url: "https://picsum.photos/id/239/800/800", caption: "Abstract art" },
-            { url: "https://picsum.photos/id/240/600/400", caption: "Colorful flowers" },
-            { url: "https://picsum.photos/id/241/800/600", caption: "Majestic mountains" },
-            { url: "https://picsum.photos/id/242/400/600", caption: "Starry night" },
-            { url: "https://picsum.photos/id/243/800/600", caption: "Random texture" },
-            { url: "https://picsum.photos/id/244/600/800", caption: "Geometric shapes" },
-            { url: "https://picsum.photos/id/245/800/600", caption: "Peaceful lake" },
-            { url: "https://picsum.photos/id/246/400/400", caption: "Green forest" },
-            { url: "https://picsum.photos/id/247/800/600", caption: "Desert landscape" },
-            { url: "https://picsum.photos/id/248/600/800", caption: "Old building" }
-        ];
-        const gridContainer = document.querySelector('.grid-container');
-        const lightbox = document.querySelector('.lightbox');
-        const lightboxImg = lightbox.querySelector('img');
-        const closeButton = document.querySelector('.close-button');
-        const captionElement = document.querySelector('.caption');
-        const body = document.body;
-        const navbar = document.querySelector('.navbar');
-        const themeSwitchButton = document.querySelector('.theme-switch-button');
-        const container = document.querySelector('.container');
-        let isLightTheme = false;
-        function toggleTheme() {
-            isLightTheme = !isLightTheme;
-            body.classList.toggle('light-theme', isLightTheme);
-            navbar.classList.toggle('light-theme', isLightTheme);
-            gridContainer.querySelectorAll('.grid-item').forEach(item => item.classList.toggle('light-theme', isLightTheme));
-            document.querySelectorAll('.placeholder').forEach(item => item.classList.toggle('light-theme', isLightTheme));
-            document.querySelectorAll('.navbar-links li a').forEach(item => item.classList.toggle('light-theme', isLightTheme));
-            themeSwitchButton.classList.toggle('light-theme', isLightTheme);
-            container.classList.toggle('light-theme', isLightTheme);
-            captionElement.classList.toggle('light-theme', isLightTheme);
-            // Update the icon based on the theme
-            if (isLightTheme) {
-                themeSwitchButton.innerHTML = '<i class="iconoir-sun"></i>';
-            } else {
-                themeSwitchButton.innerHTML = '<i class="iconoir-moon"></i>';
-            }
-        }
-        themeSwitchButton.addEventListener('click', toggleTheme);
-        // Initial icon setup
-        if (isLightTheme) {
-            themeSwitchButton.innerHTML = '<i class="iconoir-sun"></i>';
-        } else {
-            themeSwitchButton.innerHTML = '<i class="iconoir-moon"></i>';
-        }
-        imageUrls.forEach((item, index) => {
-            const gridItem = document.createElement('div');
-            gridItem.className = 'grid-item';
-            if (isLightTheme) {
-                gridItem.classList.add('light-theme');
-            }
-            const img = document.createElement('img');
-            img.src = item.url;
-            img.alt = 'Photo';
-            img.onload = () => {
-                const width = img.naturalWidth;
-                const height = img.naturalHeight;
-                const aspectRatio = width / height;
-                gridItem.style.flexBasis = `${200 * aspectRatio}px`;
-                gridItem.appendChild(img);
-            };
-            img.onerror = () => {
-                const placeholder = document.createElement('div');
-                placeholder.className = 'placeholder';
-                if (isLightTheme) {
-                    placeholder.classList.add('light-theme');
-                }
-                placeholder.textContent = 'No Image';
-                gridItem.appendChild(placeholder);
-            };
-            gridItem.style.animationDelay = `${index * 100}ms`; /* Add delay here */
-            gridContainer.appendChild(gridItem);
-            gridItem.addEventListener('click', () => {
-                lightboxImg.src = item.url;
-                captionElement.textContent = item.caption;
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-        closeButton.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = '';
-            captionElement.textContent = '';
-        });
-        lightbox.addEventListener('click', (event) => {
-            if (event.target === lightbox) {
-                lightbox.classList.remove('active');
-                document.body.style.overflow = '';
-                captionElement.textContent = '';
-            }
-        });
+    <div class="absolute top-0 right-0 p-4 text-gray-400  text-sm">02025</div>
+</header>
 
-        const titleElement = document.getElementById('page-title');
+<main class="flex-grow  items-center ">
+    <div id="typed-text">Spencer Halstead</div>
+    <footer class=" p-4  ">
+        <div class="icon" id="sad-icon">
+            <span class="material-icons">sentiment_very_dissatisfied</span>
+        </div>
+        <div class="icon" id="meh-icon">
+            <span class="material-icons">crop_7_5</span>
+        </div>
+        <div class="icon" id="happy-icon">
+            <span class="material-icons">open_with</span>
+        </div>
+    </footer>
+</main>
 
-        document.addEventListener('mousemove', (event) => {
-            const x = event.clientX;
-            const y = event.clientY;
 
-            // Calculate the center of the viewport
-            const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
 
-            // Calculate the distance from the center
-            const deltaX = x - centerX;
-            const deltaY = y - centerY;
-
-            // Scale down the movement effect
-            const movementX = deltaX / 100;  // Adjust divisor for sensitivity
-            const movementY = deltaY / 100;
-
-            // Apply the transformation
-            titleElement.style.transform = `translate(${movementX}px, ${movementY}px)`;
-        });
-    </script>
+<script>
+    // JavaScript to handle the typing animation
+    const typedTextElement = document.getElementById('typed-text');
+    typedTextElement.style.display = 'inline-block';
+</script>
 </body>
 </html>
